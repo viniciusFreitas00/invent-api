@@ -1,10 +1,17 @@
 import pool from '../database';
+var prep = require('pg-prepared');
 
 export default class AdicionaEntrada {
-  public async adicionaEntrada() {
-    return pool.query(`
-            insert into table_name
-            select  max(column1) + 1, 'entrada ' || max(column1) + 1  from  table_name 
-        `);
+  public async adicionaEntrada(usuario: string) {
+    const item = prep('insert into entrada values(${id}, NOW())');
+    let retorno: boolean = false;
+
+    pool.query(item({ id: usuario }), (error, result) => {
+      if (error) {
+        retorno = true;
+      }
+    });
+
+    return retorno;
   }
 }
