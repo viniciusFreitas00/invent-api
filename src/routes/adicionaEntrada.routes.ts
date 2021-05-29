@@ -6,9 +6,9 @@ const adicionaEntradaRouter = Router();
 
 adicionaEntradaRouter.post('/', async (request, response) => {
   const adicionaEntrada = new AdicionaEntrada();
-  const aux = await adicionaEntrada.adicionaEntrada(request.body.usuario);
+  const aux = await adicionaEntrada.adicionaEntrada(request.body.identificador);
 
-  return response.json({error: aux});
+  return response.json({ error: aux });
 });
 
 export default adicionaEntradaRouter;

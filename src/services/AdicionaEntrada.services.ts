@@ -3,7 +3,9 @@ var prep = require('pg-prepared');
 
 export default class AdicionaEntrada {
   public async adicionaEntrada(usuario: string) {
-    const item = prep('insert into entrada values(${id}, NOW())');
+    const item = prep(
+      'insert into entrada ("identificador","data_entrada","data_saida") values(${id},now(),null)',
+    );
     let retorno: boolean = false;
 
     pool.query(item({ id: usuario }), (error, result) => {
