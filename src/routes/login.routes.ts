@@ -4,7 +4,7 @@ import Login from '../services/Login.services';
 
 const adicionaEntradaRouter = Router();
 
-adicionaEntradaRouter.post('/', async (request, response) => {
+adicionaEntradaRouter.get('/', async (request, response) => {
   const login = new Login();
   const params = request.body;
   const retorno = await login.validaLogin(params.usuario, params.senha);
