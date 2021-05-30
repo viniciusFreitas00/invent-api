@@ -2,15 +2,19 @@ import { Router } from 'express';
 
 import Login from '../services/Login.services';
 
-const adicionaEntradaRouter = Router();
+const login = Router();
 
-adicionaEntradaRouter.get('/', async (request, response) => {
-  const login = new Login();
-  const params = request.body;
-  const retorno = await login.validaLogin(params.usuario, params.senha);
-  const usuario = retorno.rows[0];
+login.post('/', async (request, response) => {
+  try {
+    const login = new Login();
+    const { usuario, senha } = request.body;
+    const retorno = await login.validaLogin(usuario, senha);
+    const user = retorno.rows[0];
 
-  return response.json({ usuario });
+    return response.json({ user });
+  } catch (err) {
+    response.status(400).json({ error: 'deu ruim' });
+  }
 });
 
-export default adicionaEntradaRouter;
+export default login;
