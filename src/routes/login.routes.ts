@@ -11,7 +11,11 @@ login.post('/', async (request, response) => {
     const retorno = await login.validaLogin(usuario, senha);
     const user = retorno.rows[0];
 
-    return response.json({ user });
+    if (retorno.rowCount) {
+      return response.status(200).json({ user });
+    } else {
+      return response.status(401).json({ user });
+    }
   } catch (err) {
     response.status(400).json({ error: 'deu ruim' });
   }
